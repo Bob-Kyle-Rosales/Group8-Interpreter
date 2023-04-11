@@ -1,4 +1,4 @@
-// Generated from c:\Users\Bob Kyle\Documents\3rd Year\2nd Sem\CSIT322 - Prog Lang\Java-Interpreter\src\Simple.g4 by ANTLR 4.9.2
+// Generated from c:\Users\Bob Kyle\Documents\3rd Year\2nd Sem\Group8-Interpreter\Group8-Interpreter\src\Simple.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -33,6 +33,12 @@ public interface SimpleVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssignment(SimpleParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(SimpleParser.VariableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleParser#datatype}.
 	 * @param ctx the parse tree
