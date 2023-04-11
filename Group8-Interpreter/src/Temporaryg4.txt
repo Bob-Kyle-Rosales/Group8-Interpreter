@@ -9,18 +9,32 @@ BOOL    : 'TRUE' | 'FALSE';
 BEGIN   : 'BEGIN';
 END     : 'END';
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
-DATATYPE: 'INT' | 'FLOAT' | 'CHAR' | 'STRING' | 'BOOL';
-DATA: INT | FLOAT | CHAR | STRING | BOOL;
-EXPRESSION: IDENTIFIER | DATA;
+NEWLINE : '\r'? '\n' ; 
 
 
 // Parser rules
 start   : BEGIN line* END EOF ;
 line    : NEWLINE | statement ;
+
 statement : assignment;
-assignment : DATATYPE IDENTIFIER '=' EXPRESSION';';
-NEWLINE : '\r'? '\n' ; 
+
+assignment : datatype variable NEWLINE
+            | variable '=' expression NEWLINE
+            | datatype variable '=' expression* NEWLINE
+            | datatype variable;
+
+variable   : IDENTIFIER (',' expression)*;
+
+datatype: 'INT' | 'FLOAT' | 'CHAR' | 'STRING' | 'BOOL';
+data: INT | FLOAT | CHAR | STRING | BOOL;
+
+expression: (',')* IDENTIFIER ('=')* (expression)*
+            | IDENTIFIER '=' expression
+            | data '=' expression
+            | variable
+            | data;
+
 
 // Whitespace and comment rules
 WS      : [ \t]+ -> skip ;
-COMMENT : '//' ~[\r\n]* -> skip ;
+COMMENT : '#' ~[\r\n]* -> skip ;
